@@ -20,7 +20,7 @@ private CourseMapper courseMapper;
 		//先创建空模板
 		CourseExample example =new CourseExample();
 		//调用QBE查询，并将查询结果返回
-		return courseMapper.selectByExample(example);
+		return courseMapper.selectByExampleWithBLOBs(example);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ private CourseMapper courseMapper;
 		// TODO Auto-generated method stub
 		CourseExample example=new CourseExample();
 		example.createCriteria().andNameLike(keywords);
-		return courseMapper.selectByExample(example);
+		return courseMapper.selectByExampleWithBLOBs(example);
 	}
 
 	@Override

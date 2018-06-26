@@ -9,37 +9,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.briup.apps.poll.bean.Course;
-import com.briup.apps.poll.service.ICourseService;
+import com.briup.apps.poll.bean.Clazz;
+import com.briup.apps.poll.bean.extend.ClazzVM;
+import com.briup.apps.poll.service.IClazzService;
 import com.briup.apps.poll.util.MsgResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-@Api(description="课程接口")
+
+@Api(description="班级相关接口")
 @RestController
-@RequestMapping("/course")
-public class CourseController {
+@RequestMapping("/clazz")
+public class ClazzController {
 @Autowired
-private ICourseService  courseService;
-@ApiOperation(value="查询课程")
-@GetMapping("findAllCourse")
-public MsgResponse findAllCourse(){
-	 try {
-		List<Course> list=courseService.findAll();
+private IClazzService clazzService;
+@ApiOperation(value="查询所有班级信息")
+@GetMapping("findAllClazz")
+public MsgResponse findAllClazz(){
+	try {
+		List<Clazz> list=clazzService.findAll();
 		return MsgResponse.success("success", list);
 	 } catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		return MsgResponse.error(e.getMessage());
 	}
-	
 }
-@ApiOperation(value="插入课程")
-@PostMapping("saveCourse")
-public MsgResponse saveCourse(Course course){
+@ApiOperation(value="查询班级信息")
+@GetMapping("findAllClazzVM")
+public MsgResponse findAllClazzVM(){
+	try {
+		List<ClazzVM> list=clazzService.findAllVM();
+		return MsgResponse.success("success", list);
+	 } catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return MsgResponse.error(e.getMessage());
+	}
+}
+@ApiOperation(value="保存班级信息")
+@PostMapping("saveClazz")
+public MsgResponse saveClazz(Clazz clazz){
 	 try {
-		 courseService.save(course);
-		return MsgResponse.success("success", course);
+		 clazzService.save(clazz);
+		return MsgResponse.success("success", clazz);
 	 } catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -47,23 +60,23 @@ public MsgResponse saveCourse(Course course){
 	}
 	
 }
-@ApiOperation(value="查询课程")
-@GetMapping("queryCourse")
-public MsgResponse queryCourse(String keywords){
+@ApiOperation(value="通过关键字查询班级信息")
+@GetMapping("queryClazz")
+public MsgResponse queryClazz(String keywords){
 	try {
-		List<Course> list=courseService.query(keywords);
+		List<Clazz> list=clazzService.query(keywords);
 		return MsgResponse.success("success", list);
 	} catch (Exception e) {		
 		e.printStackTrace();
 		return MsgResponse.error(e.getMessage());
 	}	
 }
-@ApiOperation(value="修改课程")
-@PostMapping("updateCourse")
-public MsgResponse updateCourse(Course course){
+@ApiOperation(value="修改班级信息")
+@PostMapping("updateClazz")
+public MsgResponse updateClazz(Clazz clazz){
 	 try {
-		 courseService.update(course);
-		return MsgResponse.success("success", course);
+		 clazzService.update(clazz);
+		return MsgResponse.success("success", clazz);
 	 } catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -71,11 +84,11 @@ public MsgResponse updateCourse(Course course){
 	}
 	
 }
-@ApiOperation(value="删除课程")
-@PostMapping("deleteCourseById")
-public MsgResponse deleteCourseById(long id){
+@ApiOperation(value="删除班级")
+@PostMapping("deleteClazzById")
+public MsgResponse deleteClazzById(long id){
 	 try {
-		 courseService.deleteById(id);
+		clazzService.deleteById(id);
 		return MsgResponse.success("success", null);
 	 } catch (Exception e) {
 		// TODO Auto-generated catch block
@@ -84,15 +97,15 @@ public MsgResponse deleteCourseById(long id){
 	}
 	
 }
-@ApiOperation(value="批量删除课程")
-@PostMapping("batchDeleteCourse")
-public MsgResponse batchDeleteCourse(long[]ids){
+@ApiOperation(value="批量删除班级")
+@PostMapping("batchDeleteClazz")
+public MsgResponse batchDeleteClazz(long[]ids){
 	 try {
 		 List<Long> idList=new ArrayList<>();
 	 for(long id:ids){
 		 idList.add(id);
 	 }
-		 courseService.batchDelete(idList);
+	 clazzService.batchDelete(idList);
 		return MsgResponse.success("批量删除成功", null);
 	 } catch (Exception e) {
 		// TODO Auto-generated catch block
@@ -102,3 +115,4 @@ public MsgResponse batchDeleteCourse(long[]ids){
 	
 }
 }
+
