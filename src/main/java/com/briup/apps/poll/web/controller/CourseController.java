@@ -1,5 +1,6 @@
 package com.briup.apps.poll.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,17 +84,21 @@ public MsgResponse deleteCourseById(long id){
 	}
 	
 }
-@ApiOperation(value="批量删除课程")
-@PostMapping("batchDeleteCourse")
-public MsgResponse batchDeleteCourse(List<Long>ids){
-	 try {
-		 courseService.batchDelete(ids);
-		return MsgResponse.success("success", ids);
-	 } catch (Exception e) {
+@ApiOperation(value = "批量删除课程")
+@PostMapping("batchDelete")
+public MsgResponse batchDeleteCourse(long[] ids) {
+	try {
+		List<Long> idList=new ArrayList<>();
+		for(long id:ids) {
+			idList.add(id);
+		}
+		courseService.batchDelete(idList);
+		return MsgResponse.success("批量删除成功", null);
+	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		return MsgResponse.error(e.getMessage());
 	}
-	
+
 }
 }
