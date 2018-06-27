@@ -34,7 +34,23 @@ public MsgResponse findAllCourse(){
 	}
 	
 }
-@ApiOperation(value="插入课程")
+@ApiOperation(value="保存或更新课程信息",notes="如果参数中包含了id，说明是一个更新操作，否则是保存操作")
+@PostMapping("saveOrUpdateCourse")
+public MsgResponse saveOrUpdateCourse(Course course){
+	try {
+		if(course!=null&& course.getId()!=null){
+			courseService.update(course);
+		}else{
+			courseService.save(course);
+		}
+		return MsgResponse.success("success", null);
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return MsgResponse.error(e.getMessage());
+	}	
+}
+/*@ApiOperation(value="插入课程")
 @PostMapping("saveCourse")
 public MsgResponse saveCourse(Course course){
 	 try {
@@ -46,8 +62,8 @@ public MsgResponse saveCourse(Course course){
 		return MsgResponse.error(e.getMessage());
 	}
 	
-}
-@ApiOperation(value="查询课程")
+}*/
+@ApiOperation(value="通过关键字查询课程")
 @GetMapping("queryCourse")
 public MsgResponse queryCourse(String keywords){
 	try {
@@ -58,6 +74,7 @@ public MsgResponse queryCourse(String keywords){
 		return MsgResponse.error(e.getMessage());
 	}	
 }
+/*
 @ApiOperation(value="修改课程")
 @PostMapping("updateCourse")
 public MsgResponse updateCourse(Course course){
@@ -70,7 +87,7 @@ public MsgResponse updateCourse(Course course){
 		return MsgResponse.error(e.getMessage());
 	}
 	
-}
+}*/
 @ApiOperation(value="删除课程")
 @PostMapping("deleteCourseById")
 public MsgResponse deleteCourseById(long id){
