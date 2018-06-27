@@ -4,6 +4,7 @@
   <select id="selectAll" resultMap="ClazzVMResultMap">
   select * from poll_clazz
   </select>
+<<<<<<< HEAD
   
   <resultMap type="com.briup.apps.poll.bean.extend.ClazzVM" id="ClazzVMResultMap">
   <id column="id" property="id"/>
@@ -18,6 +19,22 @@
    column="charge_id" 
    select="com.briup.apps.poll.dao.UserMapper.selectByPrimaryKey"
      property="charge"  >
+=======
+  <resultMap type="com.briup.apps.poll.bean.extend.ClazzVM" 
+  id="ClazzVMResultMap">
+  <id column="id" property="id"/>
+  <result column="name" property="name"/>
+  <result column="description" property="description"/>
+  <association  
+  column="grade_id"
+  select="com.briup.apps.poll.dao.GradeMapper.selectByPrimaryKey"
+  property="grade">
+  </association>
+   <association  
+  column="charge_id"
+  select="com.briup.apps.poll.dao.UserMapper.selectByPrimaryKey"
+  property="charge">
+>>>>>>> branch 'master' of https://github.com/ningning07/poll2_cnn
   </association>
   </resultMap>
 </mapper>

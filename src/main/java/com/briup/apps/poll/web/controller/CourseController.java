@@ -76,7 +76,7 @@ public MsgResponse updateCourse(Course course){
 public MsgResponse deleteCourseById(long id){
 	 try {
 		 courseService.deleteById(id);
-		return MsgResponse.success("success", id);
+		return MsgResponse.success("success", null);
 	 } catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -84,18 +84,19 @@ public MsgResponse deleteCourseById(long id){
 	}
 	
 }
-@ApiOperation(value = "批量删除课程")
-@PostMapping("batchDelete")
-public MsgResponse batchDeleteCourse(long[] ids) {
-	try {
-		List<Long> idList=new ArrayList<>();
-		for(long id:ids) {
-			idList.add(id);
-		}
-		courseService.batchDelete(idList);
+
+@ApiOperation(value="批量删除课程")
+@PostMapping("batchDeleteCourse")
+public MsgResponse batchDeleteCourse(long[]ids){
+	 try {
+		 List<Long> idList=new ArrayList<>();
+	 for(long id:ids){
+		 idList.add(id);
+	 }
+		 courseService.batchDelete(idList);
 		return MsgResponse.success("批量删除成功", null);
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
+	 } catch (Exception e) {
+
 		e.printStackTrace();
 		return MsgResponse.error(e.getMessage());
 	}

@@ -7,13 +7,19 @@ public class ClazzVM {
 private Long id;
 private String name;
 private String description;
-private Grade grade;//班级所属的年级信息
-private User charge;//班级的班主任信息
+private Grade grade;
+private User charge;
 public Long getId() {
 	return id;
 }
 public void setId(Long id) {
 	this.id = id;
+}
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
 }
 public String getDescription() {
 	return description;
@@ -32,11 +38,5 @@ public User getCharge() {
 }
 public void setCharge(User charge) {
 	this.charge = charge;
-}
-public String getName() {
-	return name;
-}
-public void setName(String name) {
-	this.name = name;
 }
 }
