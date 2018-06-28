@@ -9,21 +9,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.briup.apps.poll.bean.Clazz;
-import com.briup.apps.poll.service.IClazzService;
+import com.briup.apps.poll.bean.Grade;
+import com.briup.apps.poll.service.IGradeService;
 import com.briup.apps.poll.util.MsgResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-@Api(description="班级相关接口")
+@Api(description="年级相关接口")
 @RestController
-@RequestMapping("/clazz")
-
-public class ClazzController {
-
-	
+@RequestMapping("/grade")
+public class GradeController {
 	@Autowired
-	private IClazzService clazzService;
+	private IGradeService gradeService;
+	
 	@GetMapping("batchDelete")
 	public MsgResponse batchDelete (Long[] ids){
 		try {
@@ -31,7 +29,7 @@ public class ClazzController {
 			for(long id:ids){
 				idList.add(id);
 			}
-			clazzService.batchDelete(idList);
+			gradeService.batchDelete(idList);
 			return MsgResponse.success("批量删除成功！", idList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,10 +37,10 @@ public class ClazzController {
 			return MsgResponse.error("删除失败！");
 		}	
 	}
-	@GetMapping("deleteByIdClazz")
-	public MsgResponse deleteByIdClazz(long id){
+	@GetMapping("deleteByIdGrade")
+	public MsgResponse deleteByIdGrade(long id){
 		try {
-			clazzService.deleteById(id);
+			gradeService.deleteById(id);
 			return MsgResponse.success("success", null);
 		} catch (Exception e) {
 			
@@ -50,22 +48,22 @@ public class ClazzController {
 			return MsgResponse.error(e.getMessage());
 		}
 	}
-	@ApiOperation("查询所有的班级信息")
-@GetMapping("findAllClazz")
-	public MsgResponse findAllClazz(){
-		try{
-			List<Clazz> list =clazzService.findAll();
+	
+	@ApiOperation("查询所有的年级信息")
+	@GetMapping("findAllGrade")
+	public MsgResponse findAllGrade(){
+		try {
+			List<Grade> list =gradeService.findAll();
 			return MsgResponse.success("success",list);
 		} catch (Exception e) {
 			return MsgResponse.error(e.getMessage());
 		}
-
+		
 	}
-	
-	@PostMapping("saveClazz")
-	public MsgResponse saveClazz(Clazz clazz){
+	@PostMapping("saveGrade")
+	public MsgResponse saveGrade(Grade grade){
 		try {
-			clazzService.save(clazz);
+			gradeService.save(grade);
 			return MsgResponse.success("success", null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -73,10 +71,10 @@ public class ClazzController {
 			return MsgResponse.error(e.getMessage());
 		}
 	}
-	@PostMapping("updateClazz")
-	public MsgResponse updateClazz(Clazz clazz){
+	@PostMapping("updateGrade")
+	public MsgResponse updateGrade(Grade grade){
 		try {
-			clazzService.update(clazz);
+			gradeService.update(grade);
 			return MsgResponse.success("success", null);
 		} catch (Exception e) {
 			
@@ -84,4 +82,4 @@ public class ClazzController {
 			return MsgResponse.error(e.getMessage());
 		}
 	}
-	}
+}
